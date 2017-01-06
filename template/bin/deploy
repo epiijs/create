@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+# prepare node
+if ! type node 2>/dev/null || [[ `node -v` != 'v6.9.2' ]] ; then
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+  source ~/.bashrc
+  nvm install v6.9.2
+  nvm alias default v6.9.2
+fi
+
+# prepare project
+if [[ ! -d "/data/app/${project}/logs" ]]; then
+  mkdir -p /data/app/${project}/logs
+fi
+
+# install dependencies
+npm --registry=http://registry.npm.taobao.org install --production
+
+# launch project by PM2
+pm2 startOrGracefulReload "/data/app/${project}/pm2.json"

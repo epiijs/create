@@ -1,0 +1,20 @@
+{
+  "apps" : [{
+    "name"               : "${project}",
+    "script"             : "index.js",
+    "env": {
+      "COMMON_VARIABLE": "true",
+      "NODE_ENV": "production"
+    },
+    "exec_interpreter"   : "node",
+    "exec_mode"          : "cluster_mode",
+    "instances"          : 0,
+    "log_date_format"    : "YYYY-MM-DD HH:mm Z",
+    "max_memory_restart" : "700M",
+    "merge_logs"         : true,
+    "error_file"         : "/data/app/${project}/logs/error.log",
+    "out_file"           : "/data/app/${project}/logs/out.log",
+    "pid_file"           : "/data/app/${project}/logs/process.pid",
+    "watch"              : false
+  }]
+}
