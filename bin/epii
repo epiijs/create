@@ -5,7 +5,6 @@
 const co = require('co')
 const chalk = require('chalk')
 
-const cwd = process.cwd()
 const argv = process.argv
 const command = argv[2]
 const options = argv.slice(3).filter(Boolean)
@@ -32,9 +31,12 @@ co(function* () {
 
 /**
  * command init
- * pull version & init engine
+ * input project + author & fill template
  */
 function* cmd_init() {
+  yield require('../invoke/init.js')({
+    project: options[0]
+  })
 }
 
 /**

@@ -10,7 +10,7 @@ export default class extends Component {
     var { title } = this.state
     return (
       <div className='container'>
-        {title}
+        <div>{title}</div>
       </div>
     )
   }

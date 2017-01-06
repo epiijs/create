@@ -20,4 +20,4 @@ if (env === 'development') {
   })
 }
 
-epiiServer([require('./config')])
+epiiServer(config)
