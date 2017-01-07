@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "cli tool for epii",
   "main": "index.js",
+  "bin": {
+    "epii": "bin/epii"
+  },
   "scripts": {
     "test": "node test"
   },
@@ -19,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/sartrey/epii-node-cli/issues"
   },
-  "homepage": "https://github.com/sartrey/epii-node-cli#readme"
+  "homepage": "https://github.com/sartrey/epii-node-cli#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "glob": "^7.1.1",
+    "ini": "^1.3.4"
+  }
 }
