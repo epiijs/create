@@ -5,99 +5,13 @@ const path = require('path')
 const child_process = require('child_process')
 
 module.exports = {
-  notSupport,
-  getJSON,
-  tryParseJSON,
-  bindReadOnly,
-  chainPromise,
   existsPath,
   readFile,
   writeFile,
   copyFile,
   mkdirSync,
-  loadModules,
+  safeSpawn,
   safeExecute
-}
-
-/**
- * promise to reject as non-support
- *
- * @return {Error||Promise}
- */
-function notSupport(type) {
-  var error = new Error('not support')
-  return !type || type === 'error' ? error : Promise.reject(error)
-}
-
-/**
- * get json message
- *
- * @param  {Assert} state
- * @param  {Object} value
- * @param  {String} label
- * @return {Object}
- */
-function getJSON(state, value, label) {
-  var o = { state: !!state }
-  if (value != null) {
-    if (label) {
-      o[label] = value
-    } else if (state) {
-      o.model = value
-    } else {
-      o.error = value
-    }
-  }
-  return o
-}
-
-/**
- * try to parse json
- * use default json if fail
- *
- * @param  {String} text
- * @param  {Object} json
- * @return {Object}
- */
-function tryParseJSON(text, json) {
-  try {
-    var o = JSON.parse(text)
-    return o
-  } catch (error) {
-    return json
-  }
-}
-
-/**
- * bind ReadOnly property
- *
- * @param  {Object} target
- * @param  {String} name
- * @param  {*} value
- */
-function bindReadOnly(target, name, value) {
-  Object.defineProperty(target, name, {
-    value: value,
-    writable: false,
-    configurable: false,
-    enumerable: true
-  })
-}
-
-/**
- * chain promise
- *
- * @param  {Promise[]} promises
- * @return {Promise} chain
- */
-function chainPromise(promises) {
-  var chain = Promise.resolve()
-  promises.forEach(function (promise) {
-    chain = chain.then(function (o) {
-      return typeof promise === 'function' ? promise(o) : promise
-    })
-  })
-  return chain
 }
 
 /**
@@ -193,25 +107,23 @@ function copyFile(p1, p2, transform) {
 }
 
 /**
- * load modules
+ * promise to spawn command
  *
- * @param  {String} dir
- * @param  {Function} cb - callback fn(file, module)
+ * @param  {String} command
+ * @param  {String[]} argv
+ * @param  {Object} options
+ * @return {Promise}
  */
-function loadModules(dir, cb) {
-  var files = fs.readdirSync(dir)
-  files.forEach(function (file) {
-    // need *.js
-    if (!/\.js$/.test(file)) return
-
-    try {
-      var o = require(path.join(dir, file))
-      if (cb) cb(file, o)
-    }
-    catch (error) {
-      console.log('failed to load: ' + file)
-      console.log(error)
-    }
+function safeSpawn(command, argv, options) {
+  return new Promise(function (resolve, reject) {
+    var stream = child_process.spawn(command, argv, options)
+    var stdout = ''
+    stream.on('close', function (code) {
+      resolve(code)
+    })
+    stream.on('error', function (error) {
+      reject(error)
+    })
   })
 }
 

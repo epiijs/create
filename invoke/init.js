@@ -16,19 +16,19 @@ module.exports = function* (query) {
   // verify project
   if (!query.project || !/^[a-zA-Z0-9\-_]+$/.test(query.project)) {
     logger.halt('please enter your project name')
-    logger.warn('project name should be [a-zA-Z0-9\-_]')
+    logger.warn('project name can contain a-z, A-Z, 0-9, -, _')
     return logger.line()
   }
 
   // get system info
-  var sysInfo = system.getSystemInfo()
+  var systemInfo = system()
   logger.info('project name =>', query.project)
-  logger.info('author name =>', sysInfo.authorName || '(not defined)')
-  logger.info('author email =>', sysInfo.authorEmail || '(not defined)')
+  logger.info('author name =>', systemInfo.authorName || '(not defined)')
+  logger.info('author email =>', systemInfo.authorEmail || '(not defined)')
 
   // create cwd + name
   var sourceDir = path.join(__dirname, '../template')
-  var targetDir = path.join(sysInfo.workDir, query.project)
+  var targetDir = path.join(systemInfo.workDir, query.project)
   logger.warn('target directory =>', targetDir)
   if (assist.existsPath(targetDir)) {
     logger.halt('target directory already exists')
@@ -42,6 +42,7 @@ module.exports = function* (query) {
   }
 
   // list template files
+  logger.line()
   logger.info('prepare template')
   var entries = glob
     .sync(sourceDir + '/**')
@@ -52,7 +53,7 @@ module.exports = function* (query) {
         target: path.join(targetDir, path.relative(sourceDir, entry))
       }
     })
-  logger.done(entries.length, 'entries for target')
+  logger.done(entries.length, 'entries to transform')
   // console.log(entries)
 
   // build target dir tree
@@ -72,7 +73,7 @@ module.exports = function* (query) {
           entry.source, entry.target.replace('_t_', ''),
           content => content
             .replace(/\$\{project\}/g, query.project)
-            .replace(/\$\{author\}/g, sysInfo.authorName)
+            .replace(/\$\{author\}/g, systemInfo.authorName)
         )
       }
     })
@@ -80,20 +81,23 @@ module.exports = function* (query) {
   logger.done('template copy finished')
 
   // init git repository
+  logger.line()
   logger.info('init git repository');
-  child_process.spawn(
+  yield assist.safeExecute(
     'git init && git add .',
-    { cwd: targetDir, stdin: 'inherit' }
+    { cwd: targetDir, stdio: 'inherit' }
   )
 
   // install dependencies
   logger.info('install dependencies');
-  child_process.spawn(
-    `npm i --registry=http://registry.npm.taobao.org`,
-    { cwd: targetDir, stdin: 'inherit' }
+  yield assist.safeSpawn(
+    'npm', ['i', '--registry=http://registry.npm.taobao.org'],
+    { cwd: targetDir, stdio: 'inherit' }
   )
 
   // output launch hints
   logger.line()
-  logger.done('project ready, launch app by [npm run devp]')
+  logger.done('project ready')
+  logger.done(`launch app by [cd ${query.project} && npm run devp]`)
+  logger.line()
 }

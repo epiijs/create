@@ -4,10 +4,10 @@ const chalk = require('chalk')
 
 const LOGO = ' EPII '
 const TYPE = {
-  info: 'bgBlue',
-  warn: 'bgYellow',
-  halt: 'bgRed',
-  done: 'bgGreen'
+  info: 'blue',
+  warn: 'yellow',
+  halt: 'red',
+  done: 'green'
 }
 const TYPE_NAMES = Object.keys(TYPE)
 
@@ -17,7 +17,7 @@ module.exports = {
 
 Object.keys(TYPE).forEach(name => {
   module.exports[name] = function () {
-    var head = chalk[TYPE[name]].black(LOGO)
+    var head = chalk.bgBlack[TYPE[name]](LOGO)
     var args = Array.prototype.slice.call(arguments, 0)
     console.log.apply(null, [head].concat(args))
   }

@@ -7,11 +7,7 @@ const path = require('path')
 const ini = require('ini')
 const assist = require('./assist.js')
 
-module.exports = {
-  getSystemInfo
-}
-
-function getSystemInfo() {
+module.exports = function getSystemInfo() {
   var homeDir = os.homedir()
   var workDir = process.cwd()
 
@@ -32,10 +28,4 @@ function getSystemInfo() {
     authorName: userInfo.name || '',
     authorEmail: userInfo.email || ''
   }
-}
-
-function copyTemplate() {
-}
-
-function fillTemplate() {
 }
