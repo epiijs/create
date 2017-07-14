@@ -9,10 +9,6 @@ const argv = process.argv
 const command = argv[2]
 const options = argv.slice(3).filter(Boolean)
 
-function color(text) {
-  return chalk.blue(text)
-}
-
 function space(n) {
   return ' '.repeat(n)
 }
@@ -21,8 +17,8 @@ function space(n) {
 co(function* () {
   try {
     switch (command) {
-      case 'init': yield cmd_init(); break
-      default: cmd_help(); break
+      case 'init': yield execInit(); break
+      default: showHelp(); break
     }
   } catch (error) {
     console.log(error.message)
@@ -33,9 +29,10 @@ co(function* () {
  * command init
  * input project + author & fill template
  */
-function* cmd_init() {
+function* execInit() {
   yield require('../invoke/init.js')({
-    project: options[0]
+    name: options[0],
+    type: options[1]
   })
 }
 
@@ -43,12 +40,13 @@ function* cmd_init() {
  * command help
  * output help list
  */
-function cmd_help() {
+function showHelp() {
   console.log(chalk.white.bold('\n/// EPII Toolkit ///\n'))
   console.log(chalk.yellow('Usage\n'))
-  console.log(space(1), chalk.white.bold('epii <command> <options>'), '\n')
-  console.log(chalk.yellow('Command\n'))
-  console.log(space(1), chalk.white.bold('init'), space(1), 'init project')
-  console.log(space(1), chalk.white.bold('help'), space(1), 'show help')
+  console.log(space(2) + chalk.white.bold('epii <command> <options>'))
+  console.log(chalk.yellow('\nCommand\n'))
+  console.log(space(2) + chalk.white.bold('init <name>') + space(2) + 'init server project')
+  console.log(space(2) + chalk.white.bold('init <name>  --minion') + space(2) + 'init minion project')
+  console.log(space(2) + chalk.white.bold('help') + space(2) + 'show help')
   console.log()
 }

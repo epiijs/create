@@ -1,10 +1,10 @@
 {
   "name": "${project}",
   "version": "1.0.0",
-  "description": "web app using EPII",
+  "description": "web app using epii",
   "main": "index.js",
   "scripts": {
-    "devp": "NODE_ENV=development node index.js",
+    "dev": "NODE_ENV=development node index.js",
     "prod": "node index.js",
     "make": "node build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,10 +12,10 @@
   "author": "${author}",
   "license": "MIT",
   "dependencies": {
-    "epii-server": "^0.2.1",
-    "whatwg-fetch": "^2.0.1"
+    "epii-server": "^0.3.1",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "epii-render": "^0.2.1"
+    "epii-render": "^0.5.0"
   }
 }

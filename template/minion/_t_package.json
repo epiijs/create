@@ -1,0 +1,15 @@
+{
+  "name": "${project}",
+  "version": "0.1.0",
+  "description": "a component",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "epiim start",
+    "build": "epiim build"
+  },
+  "author": "${author}",
+  "license": "MIT",
+  "devDependencies": {
+    "epii-minion": "^0.1.3"
+  }
+}

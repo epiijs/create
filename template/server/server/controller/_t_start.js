@@ -2,7 +2,7 @@ module.exports = [
   {
     path: '/',
     verb: 'get',
-    body: function* () {
+    body: async function () {
       return this.epii.view('/start', { title: '${project}' })
     }
   }

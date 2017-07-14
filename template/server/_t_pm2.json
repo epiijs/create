@@ -10,7 +10,7 @@
     "exec_mode"          : "cluster_mode",
     "instances"          : 0,
     "log_date_format"    : "YYYY-MM-DD HH:mm Z",
-    "max_memory_restart" : "700M",
+    "max_memory_restart" : "500M",
     "merge_logs"         : true,
     "error_file"         : "/data/app/${project}/logs/error.log",
     "out_file"           : "/data/app/${project}/logs/out.log",

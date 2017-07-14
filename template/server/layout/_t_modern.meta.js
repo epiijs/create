@@ -1,6 +1,7 @@
 const config = require('../config/server.js')
 
 module.exports = {
+  name: 'modern',
   head: {
     title: '${project}',
     metas: {
@@ -9,13 +10,16 @@ module.exports = {
     }
   },
   body: {
+    holder: {
+      source: '<div id="app"></div>'
+    },
     scripts: config.online ? [
       'client/common.js',
-      '//cdn.bootcss.com/react/15.4.1/react.js',
-      '//cdn.bootcss.com/react/15.4.1/react-dom.js',
+      '//cdn.bootcss.com/react/15.6.1/react.js',
+      '//cdn.bootcss.com/react/15.6.1/react-dom.js',
     ] : [
-      '//cdn.bootcss.com/react/15.4.1/react.js',
-      '//cdn.bootcss.com/react/15.4.1/react-dom.js',
+      '//cdn.bootcss.com/react/15.6.1/react.js',
+      '//cdn.bootcss.com/react/15.6.1/react-dom.js',
     ],
     launch: 'client/launch.js'
   }

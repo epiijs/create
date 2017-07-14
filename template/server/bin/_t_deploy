@@ -3,11 +3,11 @@
 set -e
 
 # prepare node
-if ! type node 2>/dev/null || [[ `node -v` != 'v6.9.2' ]] ; then
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+if ! type node 2>/dev/null || [[ `node -v` != 'v8.1.3' ]] ; then
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
   source ~/.bashrc
-  nvm install v6.9.2
-  nvm alias default v6.9.2
+  nvm install v8.1.3
+  nvm alias default v8.1.3
 fi
 
 # prepare project

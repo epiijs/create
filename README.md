@@ -1,6 +1,8 @@
-# epii-node-cli
+# epii-cli
+###### `epii-node-cli`
 
-cli tool for epii app
+Simple `epii` boilerplate.  
+**Only support Node 8+.**
 
 ## Usage
 
@@ -10,14 +12,33 @@ cli tool for epii app
 npm install -g epii-cli@latest
 ```
 
-### init a project
+### create a server project
 
 ```sh
+# init project
 epii init YOUR-PROJECT
+
+# run dev server
+cd YOUR-PROJECT && npm run dev
+
+# build dist
+cd YOUR-PROJECT && npm run make
+
+# run prod server
+bin/deploy
 ```
 
-### start workflow
+### create a minion project
+
+A `minion` means a component.
 
 ```sh
-cd YOUR-PROJECT && npm run dev
+# init project
+epii init YOUR-PROJECT --minion
+
+# run dev server
+cd YOUR-PROJECT && npm start
+
+# build dist
+cd YOUR-PROJECT && npm run build
 ```
