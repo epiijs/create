@@ -8,11 +8,13 @@ var env = process.env.NODE_ENV
 
 if (env === 'development') {
   const epiiRender = require('epii-render')
-  var clientDir = path.join(config.path.root, config.path.client)
-  var staticDir = path.join(config.path.root, config.path.static, 'client')
   epiiRender.watch({
-    client: clientDir,
-    static: staticDir,
+    path: {
+      root: config.path.root,
+      client: config.path.client,
+      vendor: config.path.vendor,
+      static: config.path.static
+    },
     filter: 'component',
     extern: 'react',
     simple: true,
@@ -20,4 +22,5 @@ if (env === 'development') {
   })
 }
 
+config.online = env !== 'development'
 epiiServer(config)

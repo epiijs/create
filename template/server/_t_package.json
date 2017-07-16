@@ -16,6 +16,6 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "epii-render": "^0.5.0"
+    "epii-render": "^0.6.0"
   }
 }
