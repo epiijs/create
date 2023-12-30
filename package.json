@@ -1,0 +1,37 @@
+{
+  "name": "@epiijs/create",
+  "version": "0.1.0",
+  "description": "Create web app powered by epiijs.",
+  "type": "module",
+  "main": "start.js",
+  "bin": {
+    "create-epii": "start.js"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "build": "npm run clean && eslint --ext .ts && tsc"
+  },
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epiijs/create.git"
+  },
+  "keywords": [
+    "epii",
+    "create",
+    "template"
+  ],
+  "author": "Sartrey Lee <sartrey@163.com> (https://sartrey.cn)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epiijs/create/issues"
+  },
+  "homepage": "https://github.com/epiijs/create#readme",
+  "devDependencies": {
+    "@epiijs/eslint-config": "^0.1.4",
+    "@types/node": "^20.10.6",
+    "eslint": "^8.56.0"
+  }
+}
