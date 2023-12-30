@@ -15,7 +15,7 @@ Start your great works.
 ```
 cd your-project
 npm install
-npm run start
+npm run start 
 ```
 
 ## How to debug

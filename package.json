@@ -31,7 +31,14 @@
   "homepage": "https://github.com/epiijs/create#readme",
   "devDependencies": {
     "@epiijs/eslint-config": "^0.1.4",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.6",
+    "@types/prompts": "^2.4.9",
     "eslint": "^8.56.0"
+  },
+  "dependencies": {
+    "glob": "^10.3.10",
+    "lodash-es": "^4.17.21",
+    "prompts": "^2.4.2"
   }
 }

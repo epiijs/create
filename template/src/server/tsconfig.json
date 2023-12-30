@@ -3,14 +3,15 @@
     "target": "ES2020",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "preserveConstEnums": true,
-    "outDir": "build",
+    "rootDir": "./",
+    "outDir": "../../build/server",
     "declaration": false,
+
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["./"]
 }
