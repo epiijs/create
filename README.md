@@ -24,4 +24,4 @@ npm run start
 npm install ./ -g
 ```
 
-Try to solve promblems locally.
+Try to solve problems locally.
