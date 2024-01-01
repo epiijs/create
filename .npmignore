@@ -1,4 +1,5 @@
 src
+!template/src
 .eslintignore
 .eslintrc.json
 tsconfig.json
