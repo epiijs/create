@@ -1,6 +1,6 @@
 {
   "name": "@epiijs/create",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create web app powered by epiijs.",
   "type": "module",
   "main": "start.js",
