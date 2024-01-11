@@ -17,11 +17,3 @@ cd your-project
 npm install
 npm run start 
 ```
-
-## How to debug
-
-```sh
-npm install ./ -g
-```
-
-Try to solve problems locally.

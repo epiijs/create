@@ -1,14 +1,13 @@
 import path from 'path';
-import { ActionResult, Context, IncomingMessage, handlers } from '@epiijs/server';
+import { readdir } from 'fs/promises';
+import { ActionDeclareResult, ActionResult, Context, IncomingMessage, handlers } from '@epiijs/server';
 
 export default async function PageHome(message: IncomingMessage, context: Context): Promise<ActionResult> {
-  const { url } = message;
-  console.log({ url });
+  const appConfig = context.getAppConfig();
 
   // this is a demo for local dev redirecting 
   // you should not care about dev in real service
   const isDev = process.env['epiijs_env'] === 'dev';
-  const appConfig = context.getAppConfig();
   if (isDev) {
     return {
       status: 302,
@@ -19,8 +18,22 @@ export default async function PageHome(message: IncomingMessage, context: Contex
     };
   }
 
-  await context.useHandler(handlers.staticFiles({
-    fileName: 'index.html',
-    fileRoot: path.join(appConfig.root, appConfig.dirs.target, appConfig.dirs.client)
-  }));
+  console.log(message.url);
+
+  const fileRoot = path.join(appConfig.root, appConfig.dirs.target, appConfig.dirs.client);
+  const fileName = message.url.slice(1) || 'index.html';
+  const fileNames = await readdir(fileRoot);
+  if (!fileNames.includes(fileName)) {
+    throw new Error(`file not found [${message.url}]`);
+  }
+
+  await context.useHandler(handlers.staticFiles({ fileName, fileRoot }));
+}
+
+export function declare(): ActionDeclareResult {
+  return {
+    routes: [
+      { method: 'GET', path: '/$any' }
+    ]
+  };
 }

@@ -6,7 +6,7 @@ import {
 
 const config: IMaybeAppConfig = {
   root: joinPath(getDirNameByImportMeta(import.meta), '../../'),
-  name: 'TestApp',
+  name: ${name},
   dirs: {
     client: 'client',
     server: 'server'
